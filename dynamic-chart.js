@@ -1,10 +1,9 @@
-console.log("1. - Script loaded.");
+import Chart from "https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js";
 
 class DynamicChart extends HTMLElement {
 
 	constructor() {
 		super();
-		console.log("2. - Contstructor.");
 	}
 	
 	static get observedAttributes() {
@@ -15,6 +14,28 @@ class DynamicChart extends HTMLElement {
 	}
 
 	connectedCallback() {
+		const canvas = document.createElement("canvas");
+		this.appendChild(canvas);
+
+		new Chart(canvas, {
+			type: 'bar',
+			data: {
+				labels: ['Red', 'Green', 'Yellow'],
+				datasets: [{
+					label: 'Count',
+					data: [12,19,1],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
+			
 		console.log("3. - Connected");
 	}
 
@@ -47,7 +68,6 @@ class DynamicChart extends HTMLElement {
 
 	renderLineChart(data) {
 		console.log("Line chart rendered from GitHub function.");
-		// Chart.js line chart logic.
 	}
 
 	renderPieChart(data) {
@@ -56,11 +76,7 @@ class DynamicChart extends HTMLElement {
 	}
 }
 
-console.log("4. - Registering...");
-
 customElements.define(
 	"dynamic-chart",
 	DynamicChart
 );
-
-console.log("5. - Registered.");
