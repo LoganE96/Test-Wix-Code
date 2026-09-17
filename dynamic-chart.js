@@ -1,4 +1,3 @@
-import Chart from "https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js";
 
 class DynamicChart extends HTMLElement {
 
@@ -13,7 +12,24 @@ class DynamicChart extends HTMLElement {
 		];
 	}*/
 
-	connectedCallback() {
+	async connectedCallback() {
+		if (!window.Chart) {
+			await new Promise((resolve, reject) => {
+				const script = document.createElement("script");
+
+				script.src = 
+					"https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js";
+				script.onload = resolve;
+				script.onerror = reject;
+
+				document.head.appendChild(script);
+			});
+		}
+
+		console.log("Chart.js loaded", window.Chart);
+	}
+	
+	/*connectedCallback() {
 		const canvas = document.createElement("canvas");
 		this.appendChild(canvas);
 
