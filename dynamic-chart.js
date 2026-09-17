@@ -7,18 +7,18 @@ class DynamicChart extends HTMLElement {
 		console.log("2. - Contstructor.");
 	}
 	
-	/*static get observedAttributes() {
+	static get observedAttributes() {
 		return [
 			"chart-type",
 			"chart-data"
 		];
-	}*/
+	}
 
 	connectedCallback() {
 		console.log("3. - Connected");
 	}
 
-	/*attributeChangedCallback(name, oldValue, newValue) {
+	attributeChangedCallback(name, oldValue, newValue) {
 		console.log("Attribute change detected.");
 		console.log("Received Attribute:", newValue);
 		
@@ -53,7 +53,7 @@ class DynamicChart extends HTMLElement {
 	renderPieChart(data) {
 		console.log("Pie chart rendered from Github function.");
 		// Chart.js pie chart logic.
-	}*/
+	}
 }
 
 console.log("4. - Registering...");
