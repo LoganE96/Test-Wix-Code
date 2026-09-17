@@ -6,12 +6,12 @@ class DynamicChart extends HTMLElement {
 		super();
 	}
 	
-	static get observedAttributes() {
+	/*static get observedAttributes() {
 		return [
 			"chart-type",
 			"chart-data"
 		];
-	}
+	}*/
 
 	connectedCallback() {
 		const canvas = document.createElement("canvas");
@@ -39,7 +39,7 @@ class DynamicChart extends HTMLElement {
 		console.log("3. - Connected");
 	}
 
-	attributeChangedCallback(name, oldValue, newValue) {
+	/*attributeChangedCallback(name, oldValue, newValue) {
 		console.log("Attribute change detected.");
 		console.log("Received Attribute:", newValue);
 		
@@ -73,7 +73,7 @@ class DynamicChart extends HTMLElement {
 	renderPieChart(data) {
 		console.log("Pie chart rendered from Github function.");
 		// Chart.js pie chart logic.
-	}
+	}*/
 }
 
 customElements.define(
