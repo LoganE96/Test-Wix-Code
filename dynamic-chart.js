@@ -1,9 +1,10 @@
-console.log("dynamic-chart.js loaded.");
+console.log("1. - Script loaded.");
 
 class DynamicChart extends HTMLElement {
 
 	constructor() {
 		super();
+		console.log("2. - Contstructor.");
 	}
 	
 	static get observedAttributes() {
@@ -14,7 +15,7 @@ class DynamicChart extends HTMLElement {
 	}
 
 	connectedCallback() {
-		console.log("Dynamic Chart connected.");
+		console.log("3. - Connected");
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
@@ -45,15 +46,21 @@ class DynamicChart extends HTMLElement {
 	}
 
 	renderLineChart(data) {
+		console.log("Line chart rendered from GitHub function.");
 		// Chart.js line chart logic.
 	}
 
 	renderPieChart(data) {
+		console.log("Pie chart rendered from Github function.");
 		// Chart.js pie chart logic.
 	}
 }
+
+console.log("4. - Registering...");
 
 customElements.define(
 	"dynamic-chart",
 	DynamicChart
 );
+
+console.log("5. - Registered.");
