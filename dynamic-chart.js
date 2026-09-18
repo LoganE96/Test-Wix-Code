@@ -17,12 +17,12 @@ class DynamicChart extends HTMLElement {
 
 	async loadChartJs() {
 
-		// Already loaded check
+		// Already loaded check.
 		if (Window.Chart) {
 			return;
 		}
 
-		// Another instance is trying to load it.
+		// Another instance is trying to load it check.
 		if (DynamicChart.chartJsPromise) {
 			return DynamicChart.chartJsPromise;
 		}
@@ -71,6 +71,7 @@ class DynamicChart extends HTMLElement {
 
 console.log("Stage 4 - Registering.");
 
+// Register the custom element.
 customElements.define(
 	"dynamic-chart",
 	DynamicChart
