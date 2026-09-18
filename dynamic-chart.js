@@ -1,98 +1,78 @@
+console.log("Stage 1 - Script loaded.");
 
 class DynamicChart extends HTMLElement {
 
 	constructor() {
 		super();
+		console.log("Stage 2 - Constructor fired.");
 	}
-	
-	/*static get observedAttributes() {
-		return [
-			"chart-type",
-			"chart-data"
-		];
-	}*/
 
 	async connectedCallback() {
-		if (!window.Chart) {
-			await new Promise((resolve, reject) => {
-				const script = document.createElement("script");
+		console.log("Stage 3 - Connected to webapp.");
 
-				script.src = 
-					"https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js";
-				script.onload = resolve;
-				script.onerror = reject;
+		await this.loadChartJs();
 
-				document.head.appendChild(script);
-			});
-		}
-
-		console.log("Chart.js loaded", window.Chart);
-	}
-	
-	/*connectedCallback() {
-		const canvas = document.createElement("canvas");
-		this.appendChild(canvas);
-
-		new Chart(canvas, {
-			type: 'bar',
-			data: {
-				labels: ['Red', 'Green', 'Yellow'],
-				datasets: [{
-					label: 'Count',
-					data: [12,19,1],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					y: {
-						beginAtZero: true
-					}
-				}
-			}
-		});
-			
-		console.log("3. - Connected");
+		console.log("Chart.js loaded.", typeof window.chart);
 	}
 
-	/*attributeChangedCallback(name, oldValue, newValue) {
-		console.log("Attribute change detected.");
-		console.log("Received Attribute:", newValue);
-		
-		if (name === "chart-data") {
-			this.renderChart();
-		}
-	}
+	async loadChartJs() {
 
-	renderChart() {
-		const chartType = this.getAttribute("chart-type");
-
-		const chartData = JSON.parse(this.getAttribute("chart-data"));
-
-		if (!chartData) {
+		// Already loaded check
+		if (Window.Chart) {
 			return;
 		}
 
-		if (chartType === "line") {
-			this.renderLineChart(chartData);
+		// Another instance is trying to load it.
+		if (DynamicChart.chartJsPromise) {
+			return DynamicChart.chartJsPromise;
 		}
 
-		if (chartType === "pie") {
-			this.renderPieChart(chartData);
-		}
+		DynamicChart.chartJsPromise = new Promise((resolve, reject) => {
+			const script = document.createElement("script");
+
+			script.src = "https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js";
+
+			script.onload = () => {
+				console.log("Chart.js download complete.");
+				resolve();
+			}
+
+			script.onerror = (err) => {
+				console.error("Failed to load Chart.js", err);
+				reject(err);
+			}
+
+			document.head.appendChild(script);
+		});
+		
+		return DynamicChart.chartJsPromise;
 	}
 
-	renderLineChart(data) {
-		console.log("Line chart rendered from GitHub function.");
-	}
+	render() {
+		this.innerHTML = "";
 
-	renderPieChart(data) {
-		console.log("Pie chart rendered from Github function.");
-		// Chart.js pie chart logic.
-	}*/
+		const canvas = document.createElement("canvas");
+
+		this.appendChild(canvas);
+
+		new Chart(canvas, {
+			type: "pie",
+			data: {
+				labels: ['A', 'B', 'C'],
+				datasets: [{
+					data: [30, 40, 30]
+				}]
+			}
+
+			console.log("Chart rendered.");
+	}
 }
+
+console.log("Stage 4 - Registering.");
 
 customElements.define(
 	"dynamic-chart",
 	DynamicChart
 );
+
+console.log("Stage 5 - Registered.);
