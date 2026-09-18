@@ -16,14 +16,16 @@ class DynamicChart extends HTMLElement {
 	}
 
 	async loadChartJs() {
-
+		console.log("A - Entered the chart.js loading script.");
 		// Already loaded check.
 		if (Window.Chart) {
+			console.log("E1 - Window chart already in frame.");
 			return;
 		}
 
 		// Another instance is trying to load it check.
 		if (DynamicChart.chartJsPromise) {
+			console.log("E2 - Another instance is trying to load chart.js.");
 			return DynamicChart.chartJsPromise;
 		}
 
@@ -43,6 +45,8 @@ class DynamicChart extends HTMLElement {
 			}
 
 			document.head.appendChild(script);
+
+			console.log("B - Finished the chart.js loader script.");
 		});
 		
 		return DynamicChart.chartJsPromise;
