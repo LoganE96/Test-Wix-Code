@@ -63,8 +63,9 @@ class DynamicChart extends HTMLElement {
 					data: [30, 40, 30]
 				}]
 			}
+		});
 
-			console.log("Chart rendered.");
+		console.log("Chart rendered.");
 	}
 }
 
