@@ -76,4 +76,4 @@ customElements.define(
 	DynamicChart
 );
 
-console.log("Stage 5 - Registered.);
+console.log("Stage 5 - Registered");
