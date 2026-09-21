@@ -53,6 +53,8 @@ class DynamicChart extends HTMLElement {
 	}
 
 	render() {
+		console.log("Entering render function.");
+		
 		this.innerHTML = "";
 
 		const canvas = document.createElement("canvas");
