@@ -1,31 +1,31 @@
-console.log("Stage 1 - Script loaded.");
+#console.log("Stage 1 - Script loaded.");
 
 class DynamicChart extends HTMLElement {
 
 	constructor() {
 		super();
-		console.log("Stage 2 - Constructor fired.");
+		#console.log("Stage 2 - Constructor fired.");
 	}
 
 	async connectedCallback() {
-		console.log("Stage 3 - Connected to webapp.");
+		#console.log("Stage 3 - Connected to webapp.");
 
 		await this.loadChartJs();
 
-		console.log("Chart.js loaded.", typeof window.chart);
+		#console.log("Chart.js loaded.", typeof window.chart);
 	}
 
 	async loadChartJs() {
 		console.log("A - Entered the chart.js loading script.");
 		// Already loaded check.
 		if (Window.Chart) {
-			console.log("E1 - Window chart already in frame.");
+			#console.log("E1 - Window chart already in frame.");
 			return;
 		}
 
 		// Another instance is trying to load it check.
 		if (DynamicChart.chartJsPromise) {
-			console.log("E2 - Another instance is trying to load chart.js.");
+			#console.log("E2 - Another instance is trying to load chart.js.");
 			return DynamicChart.chartJsPromise;
 		}
 
@@ -35,12 +35,12 @@ class DynamicChart extends HTMLElement {
 			script.src = "https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js";
 
 			script.onload = () => {
-				console.log("Chart.js download complete.");
+				#console.log("Chart.js download complete.");
 				resolve();
 			}
 
 			script.onerror = (err) => {
-				console.error("Failed to load Chart.js", err);
+				#console.error("Failed to load Chart.js", err);
 				reject(err);
 			}
 
@@ -53,7 +53,7 @@ class DynamicChart extends HTMLElement {
 	}
 
 	render() {
-		console.log("Entering render function.");
+		#console.log("Entering render function.");
 		
 		this.innerHTML = "";
 
@@ -71,11 +71,11 @@ class DynamicChart extends HTMLElement {
 			}
 		});
 
-		console.log("Chart rendered.");
+		#console.log("Chart rendered.");
 	}
 }
 
-console.log("Stage 4 - Registering.");
+#console.log("Stage 4 - Registering.");
 
 // Register the custom element.
 customElements.define(
@@ -83,4 +83,4 @@ customElements.define(
 	DynamicChart
 );
 
-console.log("Stage 5 - Registered");
+#console.log("Stage 5 - Registered");
